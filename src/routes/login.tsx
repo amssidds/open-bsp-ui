@@ -2,9 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/supabase/client";
 import { useTranslation } from "@/hooks/useTranslation";
-import { GoogleOutlined, GithubOutlined } from "@ant-design/icons";
-
-type OAuthProvider = "google" | "github";
 
 export const Route = createFileRoute("/login")({
   component: Login,
@@ -14,18 +11,8 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const { redirect } = Route.useSearch();
 
   const { translate: t } = useTranslation();
-
-  async function handleLogInWithOauth(provider: OAuthProvider) {
-    await supabase.auth.signInWithOAuth({
-      provider,
-      options: {
-        redirectTo: window.location.origin + (redirect || "/"),
-      },
-    });
-  }
 
   async function handleLogInWithEmail(e?: React.FormEvent) {
     if (e) e.preventDefault();
@@ -46,34 +33,16 @@ function Login() {
   return (
     <div className="flex flex-col gap-9 justify-center items-center bg-background text-foreground h-dvh w-screen">
       <div className="text-primary tracking-tighter font-bold text-[36px]">
-        OpenBSP
+        GSPL WA Business
       </div>
 
       <div className="flex flex-col gap-3 w-[250px]">
-        <button
-          type="button"
-          className="primary bg-blue-500 hover:bg-blue-400 text-white w-full border-none"
-          onClick={() => handleLogInWithOauth("google")}
-        >
-          <GoogleOutlined /> {t("Continuar con Google")}
-        </button>
-
-        <button
-          type="button"
-          className="primary bg-gray-900 hover:bg-gray-800 text-white w-full border-none"
-          onClick={() => handleLogInWithOauth("github")}
-        >
-          <GithubOutlined /> {t("Continuar con GitHub")}
-        </button>
-
-        <div className="border-b border-border w-full" />
-
         <form onSubmit={handleLogInWithEmail} className="login-form">
           <label>
             <div className="label">{t("Correo electrónico")}</div>
             <input
               className="text"
-              placeholder="gori@gmail.com"
+              placeholder="you@growsafehse.com"
               type="text"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
