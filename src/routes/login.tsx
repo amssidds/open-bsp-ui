@@ -68,7 +68,7 @@ function Login() {
 
         <div className="border-b border-border w-full" />
 
-        <form onSubmit={handleLogInWithEmail} className={`login-form ${import.meta.env.DEV ? "" : "hidden"}`}>
+        <form onSubmit={handleLogInWithEmail} className="login-form">
           <label>
             <div className="label">{t("Correo electrónico")}</div>
             <input
